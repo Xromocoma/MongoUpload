@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+  upload-media:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      network_mode: host
+      environment:
+
+        MONGO_HOST: cloud-dev-mongo-node-1
+        MONGO_PORT: 27017
+        MONGO_DB_NAME: profile_db
+        MONGO_USER: usr
+        MONGO_PASSWORD: SWLMjcR9uTGPQ7qj
+
+#        KAFKA_HOST: 127.0.0.1
+#        KAFKA_PORT: 9092
+#        KAFKA_TOPIC: mysql-views
+#        KAFKA_TIMEOUT: 5
+#        KAFKA_GROUP_ID: export
+        DEBUG: 1
+        COUNT_THREADS: 10
+      restart: on-failure
