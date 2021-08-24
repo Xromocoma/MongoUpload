@@ -15,7 +15,7 @@ async def greetings():
     tasks = []
     async for item in res:
         #tasks.append(create_task(greeting_updater(stub_grpc, item, mongo_db['greeting'])))
-        greeting_updater(stub_grpc, item, mongo_db['greeting'])
+        await greeting_updater(stub_grpc, item, mongo_db['greeting'])
     #for task in tasks:
     #    await task
     print('greetings end')
