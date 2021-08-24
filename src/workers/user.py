@@ -14,10 +14,11 @@ async def users():
 
     tasks = []
     async for item in res:
-        tasks.append(create_task(user_updater(stub_grpc, item, mongo_db['user'])))
+        #tasks.append(create_task(user_updater(stub_grpc, item, mongo_db['user'])))
+        user_updater(stub_grpc, item, mongo_db['user'])
 
-    for task in tasks:
-        await task
+    #for task in tasks:
+    #    await task
     print('user end')
 
 
