@@ -14,7 +14,7 @@ async def photos():
     tasks = []
     async for item in res:
         #tasks.append(create_task(photo_updater(stub_grpc, item, mongo_db['photo'])))
-        photo_updater(stub_grpc, item, mongo_db['photo'])
+        await photo_updater(stub_grpc, item, mongo_db['photo'])
     #for task in tasks:
     #    await task
     print('photo end')
