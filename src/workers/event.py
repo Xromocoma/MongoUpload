@@ -18,7 +18,7 @@ async def events():
     tasks = []
     async for item in res:
         #tasks.append(create_task(event_updater(stub_grpc, item, mongo_db['event'])))
-        event_updater(stub_grpc, item, mongo_db['event'])
+        await event_updater(stub_grpc, item, mongo_db['event'])
     #for task in tasks:
     #    await task
     print('event end')
