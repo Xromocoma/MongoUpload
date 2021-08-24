@@ -1,5 +1,10 @@
 from __future__ import print_function
+import grpc
 from skyproto_pb import media_pb2
+from config import UPLOAD_GRPC_ADDRESS
+
+
+channel = grpc.insecure_channel(UPLOAD_GRPC_ADDRESS, options=(('grpc.max_concurrent_streams', -1),))
 
 
 def upload_request(file_name, content_type, content, content_kind):
@@ -7,16 +12,14 @@ def upload_request(file_name, content_type, content, content_kind):
                                   Content=content, Kind=content_kind)
 
 
-def upload(stub, file_name, content_type, content,content_kind):
+def upload(stub, file_name, content_type, content, content_kind):
     """
     file_name: file name
     content_type: Content-Type (MIME тип контента согласно RFC)/ <image/png>
     content: bytes
     """
 
-
-
-    response = stub.Upload(upload_request(file_name, content_type, content,content_kind))
+    response = stub.Upload(upload_request(file_name, content_type, content, content_kind))
 
     if response is None:
         return None
@@ -29,3 +32,5 @@ def upload(stub, file_name, content_type, content,content_kind):
         return None
 
     return response.ContentID
+
+

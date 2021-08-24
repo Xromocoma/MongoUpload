@@ -1,27 +1,31 @@
-import requests
+import grequests
 from PIL import Image
 import io
 from src.grpc import upload
 
 
-def get_content_type(content):
+async def get_content_type(content):
     content_kind = {'image': 0, 'video': 1, 'audio': 2, 'file': 3, 'skyloveFile': 4, 'testFile': 5}
     for item in content_kind:
         if item in content:
             return content_kind[item]
 
 
-def upload_file(file_url, stub):
+async def upload_file(file_url, stub):
     max_size = 104857600  # 100 mb
     max_image_size = 7000000  # ~7 mb
-    request = requests.request(method='GET', url=file_url)
+    request = grequests.get(url=file_url)
+    grequests.map([request])
+    if not request.response or request.response.status_code != 200:
+        return None
+    request = request.response
     file_name = request.url.replace("https://static.skylove.su/", "")
     file_name = file_name[file_name.find('/') + 1:]
 
     attachment = {
         "content": request.content,
         "file_name": file_name,
-        "content_kind": get_content_type(request.headers['Content-Type']),  # 5
+        "content_kind": await get_content_type(request.headers['Content-Type']),  # 5
         "content_type": request.headers['Content-Type']
     }
 
@@ -68,4 +72,3 @@ def upload_file(file_url, stub):
         return None
     except Exception as e:
         print(e, flush=True)
-
