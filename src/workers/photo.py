@@ -13,9 +13,10 @@ async def photos():
     stub_grpc = media_pb2_grpc.MediaStub(channel)
     tasks = []
     async for item in res:
-        tasks.append(create_task(photo_updater(stub_grpc, item, mongo_db['photo'])))
-    for task in tasks:
-        await task
+        #tasks.append(create_task(photo_updater(stub_grpc, item, mongo_db['photo'])))
+        photo_updater(stub_grpc, item, mongo_db['photo'])
+    #for task in tasks:
+    #    await task
     print('photo end')
 
 
