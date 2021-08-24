@@ -15,10 +15,10 @@ async def messages():
     stub_grpc = media_pb2_grpc.MediaStub(channel)
     tasks = []
     async for item in res:
-        tasks.append(create_task(messages_updater(stub_grpc, item, mongo_db['dialog_message'])))
-
-    for task in tasks:
-        await task
+        #tasks.append(create_task(messages_updater(stub_grpc, item, mongo_db['dialog_message'])))
+        messages_updater(stub_grpc, item, mongo_db['dialog_message'])
+    #for task in tasks:
+    #    await task
     print('messages end')
 
 
