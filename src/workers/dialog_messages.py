@@ -16,7 +16,7 @@ async def messages():
     tasks = []
     async for item in res:
         #tasks.append(create_task(messages_updater(stub_grpc, item, mongo_db['dialog_message'])))
-        messages_updater(stub_grpc, item, mongo_db['dialog_message'])
+        await messages_updater(stub_grpc, item, mongo_db['dialog_message'])
     #for task in tasks:
     #    await task
     print('messages end')
