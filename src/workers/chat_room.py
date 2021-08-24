@@ -15,7 +15,7 @@ async def chat_rooms():
     tasks = []
     async for item in res:
         #tasks.append(create_task(chat_rooms_updater(stub_grpc, item, mongo_db['room'])))
-        chat_rooms_updater(stub_grpc, item, mongo_db['room'])
+        await chat_rooms_updater(stub_grpc, item, mongo_db['room'])
     #for task in tasks:
     #    await task
     print('chat_room end')
